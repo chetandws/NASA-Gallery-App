@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.cjlabs.nasagalleryapp.GalleryFragment"
+        android:name="com.cjlabs.nasagalleryapp.view.GalleryFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_gallery_list">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.cjlabs.nasagalleryapp.GalleryDetailsFragment"
+        android:name="com.cjlabs.nasagalleryapp.view.GalleryDetailsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_gallery_details">
 
