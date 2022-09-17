@@ -9,12 +9,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cjlabs.nasagalleryapp.R
 import com.cjlabs.nasagalleryapp.databinding.FragmentGalleryListBinding
+import com.cjlabs.nasagalleryapp.model.NasaGallery
+import com.cjlabs.nasagalleryapp.view.adapter.GalleryListAdapter
+import com.cjlabs.nasagalleryapp.view.adapter.ItemClickListener
 import com.cjlabs.nasagalleryapp.viewmodel.NasaViewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class GalleryFragment : Fragment() {
+class GalleryFragment : Fragment(), ItemClickListener {
 
     private var _binding: FragmentGalleryListBinding? = null
     private val sharedViewModel: NasaViewModel by activityViewModels()
@@ -36,18 +39,19 @@ class GalleryFragment : Fragment() {
 
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = sharedViewModel
-            galleryFragment = this?.galleryFragment
-        }
-
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-            sharedViewModel.loadData()
+            adapter = GalleryListAdapter(sharedViewModel.nasaGalleryList,R.layout.gallery_list_item, this@GalleryFragment)
         }
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun itemClicked(item: NasaGallery) {
+        sharedViewModel.setItemPosition(item)
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 }

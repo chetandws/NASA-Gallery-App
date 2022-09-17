@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 
 class NasaApp : Application() {
-
     init {
         instance = this
     }
@@ -14,5 +13,4 @@ class NasaApp : Application() {
 
         fun getAppContext(): Context = instance!!.applicationContext
     }
-
 }

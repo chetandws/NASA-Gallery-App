@@ -1,14 +1,15 @@
 package com.cjlabs.nasagalleryapp.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.cjlabs.nasagalleryapp.R
 import com.cjlabs.nasagalleryapp.databinding.FragmentGalleryDetailsBinding
+import com.cjlabs.nasagalleryapp.view.adapter.GalleryListAdapter
 import com.cjlabs.nasagalleryapp.viewmodel.NasaViewModel
 
 /**
@@ -39,15 +40,20 @@ class GalleryDetailsFragment : Fragment() {
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
-            galleryDetailsFragment = this?.galleryDetailsFragment
+            adapter = GalleryListAdapter(sharedViewModel.nasaGalleryList, R.layout.gallery_details_item)
+            Log.i(javaClass.simpleName,"onViewCreated ItemPosition =${sharedViewModel.getItemPosition()}")
+
+            detailViewPager.post {
+                detailViewPager.setCurrentItem(sharedViewModel.getItemPosition(), false)
+            }
         }
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

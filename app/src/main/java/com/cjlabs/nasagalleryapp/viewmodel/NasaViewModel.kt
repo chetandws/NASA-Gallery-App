@@ -1,17 +1,23 @@
 package com.cjlabs.nasagalleryapp.viewmodel
 
-import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import com.cjlabs.nasagalleryapp.model.DataRepository
 import com.cjlabs.nasagalleryapp.model.NasaGallery
 
+
 class NasaViewModel : ViewModel() {
+    private val selectedItemPosition = ObservableInt()
 
+    private lateinit var selectedItem: NasaGallery
     private val dataRepository = DataRepository()
-    private lateinit var nasaGalleryList: List<NasaGallery>
+    val nasaGalleryList: List<NasaGallery> by lazy { loadData() }
+    private fun loadData() = dataRepository.getGalleryData()
 
-    fun loadData() {
-        nasaGalleryList = dataRepository.getGalleryData()
+    fun setItemPosition(model: NasaGallery) {
+        selectedItem = model
+        selectedItemPosition.set(nasaGalleryList.indexOfFirst { it.copyright == model.copyright })
     }
 
+    fun getItemPosition(): Int = selectedItemPosition.get()
 }

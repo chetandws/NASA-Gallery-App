@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.cjlabs.nasagalleryapp.model.NasaGallery" />
+
+        <variable
+            name="itemClickListener"
+            type="com.cjlabs.nasagalleryapp.view.adapter.ItemClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="@color/white"
+        android:onClick="@{()->itemClickListener.itemClicked(model)}"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="4dp">
+
+        <ImageView
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/grid_item_height"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@{model.url}" />
+
+    </androidx.cardview.widget.CardView>
+</layout>
