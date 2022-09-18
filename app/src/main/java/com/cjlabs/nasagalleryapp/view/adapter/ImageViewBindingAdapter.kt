@@ -9,7 +9,6 @@ object ImageViewBindingAdapter {
     @JvmStatic
     @BindingAdapter("android:src")
     fun ImageView.bindImage(url: String) {
-        Glide.with(this.context).load(url).into(this)
         if (url.isNullOrEmpty()) {
             this.setImageResource(R.drawable.place_holder)
         } else {
