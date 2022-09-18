@@ -10,7 +10,7 @@ import java.lang.reflect.Type
 
 object TestUtils {
     private val gson = Gson()
-    fun getJson(path: String): String {
+    private fun getJson(path: String): String {
         val uri = javaClass.classLoader!!.getResource(path)
         val file = File(uri.path.replace("%20", " "))
         return String(file.readBytes())
@@ -22,10 +22,5 @@ object TestUtils {
             gson.fromJson(getJson(path), listType)
         return list.sortedByDescending { it.date }
     }
-
-    fun getInputStream(path: String): InputStream {
-        val uri = javaClass.classLoader!!.getResource(path)
-        val file = File(uri.path.replace("%20", " "))
-        return file.inputStream()
-    }
+    
 }
