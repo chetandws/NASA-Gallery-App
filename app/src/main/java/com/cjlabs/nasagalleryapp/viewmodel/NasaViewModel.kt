@@ -10,13 +10,18 @@ class NasaViewModel : ViewModel() {
     private val selectedItemPosition = ObservableInt()
 
     private lateinit var selectedItem: NasaGallery
-    private val dataRepository = DataRepository()
+    lateinit var dataRepository: DataRepository
     val nasaGalleryList: List<NasaGallery> by lazy { loadData() }
+
     private fun loadData() = dataRepository.getGalleryData()
 
     fun setItemPosition(model: NasaGallery) {
         selectedItem = model
-        selectedItemPosition.set(nasaGalleryList.indexOfFirst { it.copyright == model.copyright })
+        selectedItemPosition.set(nasaGalleryList.indexOfFirst {
+            it.copyright == model.copyright
+                    && it.url == model.url
+                    && it.title == model.title
+        })
     }
 
     fun getItemPosition(): Int = selectedItemPosition.get()

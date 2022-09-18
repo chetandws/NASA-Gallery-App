@@ -15,28 +15,18 @@ class GalleryListAdapter(
     private val itemClickListener: ItemClickListener? = null
 ) : RecyclerView.Adapter<GalleryListAdapter.GalleryViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
-
-        val viewHolder: GalleryViewHolder = if (itemClickListener == null) {
-            val binding: GalleryDetailsItemBinding =
-                DataBindingUtil.inflate(
-                    LayoutInflater.from(parent.context),
-                    layoutResourceId, parent, false)
-            GalleryPagerViewHolder(binding)
-        } else {
-            val binding: GalleryListItemBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                layoutResourceId, parent, false)
-            GalleryListViewHolder(binding)
-        }
-
-        return viewHolder
+        val binding: ViewDataBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            layoutResourceId,
+            parent,
+            false
+        )
+        return GalleryViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
-        val dataModel: NasaGallery = galleryList[position]
-        holder.bind(dataModel)
+        holder.bind(galleryList[position])
         holder.binding.executePendingBindings()
         this@GalleryListAdapter.itemClickListener?.let {
             (holder.binding as? GalleryListItemBinding)?.itemClickListener =
@@ -46,26 +36,14 @@ class GalleryListAdapter(
 
     override fun getItemCount(): Int = galleryList.size ?: 0
 
-    class GalleryListViewHolder(binding: GalleryListItemBinding) :
-        GalleryViewHolder(binding) {
-
-        override fun bind(nasaGallery: NasaGallery) {
-            (binding as? GalleryListItemBinding)?.model = nasaGallery
+    class GalleryViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(nasaGallery: NasaGallery) {
+            if (binding is GalleryDetailsItemBinding) {
+                binding.model = nasaGallery
+            } else if (binding is GalleryListItemBinding) {
+                binding.model = nasaGallery
+            }
         }
-    }
-
-    class GalleryPagerViewHolder(binding: GalleryDetailsItemBinding) :
-        GalleryViewHolder(binding) {
-        override fun bind(nasaGallery: NasaGallery) {
-            (binding as? GalleryDetailsItemBinding)?.model = nasaGallery
-        }
-    }
-
-    abstract class GalleryViewHolder(
-        val binding: ViewDataBinding,
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
-        abstract fun bind(nasaGallery: NasaGallery)
     }
 
 }

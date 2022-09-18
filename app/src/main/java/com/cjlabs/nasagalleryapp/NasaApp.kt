@@ -1,4 +1,4 @@
-package com.cjlabs.nasagalleryapp.utils
+package com.cjlabs.nasagalleryapp
 
 import android.app.Application
 import android.content.Context

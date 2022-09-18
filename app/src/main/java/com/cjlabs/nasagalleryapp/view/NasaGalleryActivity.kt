@@ -1,16 +1,11 @@
 package com.cjlabs.nasagalleryapp.view
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.bumptech.glide.Glide
 import com.cjlabs.nasagalleryapp.R
 import com.cjlabs.nasagalleryapp.databinding.ActivityNasaGalleryBinding
 
